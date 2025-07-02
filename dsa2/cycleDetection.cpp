@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+//#include "topologicalSort.cpp"
 using namespace std;
 
 class cycleDetection {
@@ -57,6 +58,17 @@ class cycleDetection {
         pathVisited[node] = false;
         return false;
     }
+
+/*     // Function to detect cycle in a directed graph using Kahn's algorithm (BFS) --> topological sort
+    bool kahn(int V, vector<vector<int>> &adj){
+        topoSort ts;
+        vector<int> topo = ts.kahn(V, adj);
+        if(topo.size() != V){
+            return true; // Cycle detected if topological sort size is not equal to number of vertices
+        } else {
+            return false; // No cycle detected
+        }
+    } */
 
 };
 
