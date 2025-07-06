@@ -53,6 +53,40 @@ class shortPath {
             return dist;
         }
 
+        // Function to find the shortest path in a graph using Dijkstra's algorithm -> priority queue
+        vector<int> dijkstra(int V, vector<vector<int>> &edges, int source){
+            vector<vector<pair<int,int>>> adj;
+            for(int i = 0; i < V; i++){
+                int u = edges[i][0];
+                int v = edges[i][1];
+                int wt = edges[i][2];
+                adj[u].push_back({v,wt});
+                //adj[v].push_back({u,wt}); // for undirected graph
+            }
+
+            vector<int> dist(V,INT_MAX);
+            dist[source] = 0;
+            
+            priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+            pq.push({dist[source], source});
+
+            while(!pq.empty()){
+                int node = pq.top().second;
+                int d = pq.top().first;
+                pq.pop();
+
+                for(auto it : adj[node]){
+                    int v = it.first;
+                    int wt = it.second;
+
+                    if(d + wt < dist[v]){
+                        dist[v] = d + wt;
+                        pq.push({dist[v], v});
+                    }
+                }
+            }
+        }
+
 };
 
 int main() {return 0;}
