@@ -85,6 +85,35 @@ class shortPath {
                     }
                 }
             }
+            return dist;
+        }
+
+        // Function to find the shortest path in a graph using dijkstra's algorithm -> set
+        vector<int> dikjstra(int V, vector<vector<pair<int,int>>>& adj, int source){
+            vector<int> dist(V,INT_MAX);
+            set<pair<int,int>> s;
+            dist[source] = 0;
+            s.insert({0,source});
+
+            while(!s.empty()){
+                auto it = *(s.begin());
+                int node = it.second;
+                int d = it.first;
+                s.erase(it);
+
+                for(auto it : adj[node]){
+                    int adjNode = it.first;
+                    int wt = it.second;
+
+                    if(d + wt < dist[adjNode]){
+                        if(dist[adjNode] != INT_MAX)
+                            s.erase({dist[adjNode],adjNode});
+                        dist[adjNode] = d + wt;
+                        s.insert({dist[adjNode],adjNode});
+                    }
+                }
+            }
+            return dist;
         }
 
 };
