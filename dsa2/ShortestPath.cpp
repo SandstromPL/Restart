@@ -116,6 +116,50 @@ class shortPath {
             return dist;
         }
 
+        // Function to find the shortest path in a graph using Bellman-Ford Algorithm
+        vector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) {
+        // Code here
+        vector<int> dist(V,1e8);
+        dist[src] = 0;
+        
+        for(int i = 1; i <= V - 1; i++){
+            for(auto it : edges){
+                int u = it[0];
+                int v = it[1];
+                int wt = it[2];
+                if(dist[u] != 1e8 && dist[u] + wt < dist[v]){
+                    dist[v] = dist[u] + wt;
+                }
+            }
+        }
+        
+        for(auto it : edges){
+            int u = it[0];
+            int v = it[1];
+            int wt = it[2];
+            if(dist[u] != 1e8 && dist[u] + wt < dist[v]){
+                return {-1};
+            }
+        }
+        
+        return dist;
+    }
+
+    // Function to find the shortest path in a graph using Floyd-Warshall Algorithm
+    void floydWarshall(vector<vector<int>> &dist) {
+        // Code here
+        int n = dist.size();
+        
+        for(int k = 0; k < n; k++){
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < n; j++){
+                    if(dist[i][k] != 1e8 && dist[k][j] != 1e8)
+                        dist[i][j] = min(dist[i][j] , dist[i][k] + dist[k][j]);
+                }
+            }
+        }
+    }
+
 };
 
 int main() {return 0;}
